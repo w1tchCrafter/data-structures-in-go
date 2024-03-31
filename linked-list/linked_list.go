@@ -36,9 +36,8 @@ func (lk *LinkedList[T]) AppendToBeggining(data T) {
 
 /*
 insert data at a certain index starting at zero
-
-	if head is nil, appends data to head
-	if the linked list is not long enough, appends the data to the tail
+if head is nil, appends data to head
+if the linked list is not long enough, appends the data to the tail
 */
 func (lk *LinkedList[T]) Insert(index uint, data T) {
 	NewNode := &Node[T]{Data: data}
@@ -50,14 +49,14 @@ func (lk *LinkedList[T]) Insert(index uint, data T) {
 	}
 
 	current := lk.Head
-	for i := 0; i <= int(index); i++ {
+	for i := range index {
 		if current == nil {
 			current = NewNode
 			lk.Tail = NewNode
 			break
 		}
 
-		if i == int(index)-1 {
+		if i == index-1 {
 			NewNode.Next = current.Next
 			current.Next = NewNode
 			break
@@ -65,4 +64,33 @@ func (lk *LinkedList[T]) Insert(index uint, data T) {
 
 		current = current.Next
 	}
+}
+
+// delete the first node from the linked list
+func (lk *LinkedList[T]) DeleteBeggining() {
+	if lk.Head == nil {
+		return
+	}
+
+	lk.Head = lk.Head.Next
+}
+
+// delete the last item from the linked list
+func (lk *LinkedList[T]) DeleteEnd() {
+	if lk.Head == nil {
+		return
+	}
+
+	if lk.Head == lk.Tail {
+		lk.Head = nil
+		lk.Tail = nil
+	}
+
+	current := lk.Head
+	for current.Next != lk.Tail {
+		current = current.Next
+	}
+
+	current.Next = nil
+	lk.Tail = current
 }

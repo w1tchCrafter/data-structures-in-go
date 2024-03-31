@@ -31,6 +31,7 @@ func TestInsert(t *testing.T) {
 	lk := NewLinkedList[float32]()
 	lk.Insert(10, 10.23)
 
+	//test if data was inserted to head if head is nil
 	if lk.Head.Data != 10.23 && lk.Tail.Data != 10.23 {
 		t.Fail()
 	}
@@ -55,6 +56,57 @@ func TestInsert(t *testing.T) {
 
 	//check if former index 1 was moved to index 2
 	if lk.Head.Next.Next.Data != 9.5 {
+		t.Fail()
+	}
+
+	lk.Insert(100, 8.7)
+
+	//check if data was appended to tail if index is bigger than list length
+	if lk.Tail.Data != 8.7 {
+		t.Fail()
+	}
+}
+
+func TestDeleteBeggining(t *testing.T) {
+	lk := NewLinkedList[string]()
+
+	lk.AppendToEnd("John")
+	lk.AppendToEnd("Doe")
+	lk.AppendToEnd("foo")
+	lk.AppendToEnd("bar")
+
+	lk.DeleteBeggining()
+
+	if lk.Head.Data != "Doe" {
+		t.Fail()
+	}
+
+	lk.DeleteBeggining()
+	lk.DeleteBeggining()
+
+	if lk.Head.Data != "bar" {
+		t.Fail()
+	}
+}
+
+func TestDeleteEnd(t *testing.T) {
+	lk := NewLinkedList[int]()
+
+	lk.AppendToEnd(10)
+	lk.AppendToEnd(20)
+	lk.AppendToEnd(30)
+	lk.AppendToEnd(40)
+
+	lk.DeleteEnd()
+
+	if lk.Tail.Data != 30 {
+		t.Fail()
+	}
+
+	lk.DeleteEnd()
+	lk.DeleteEnd()
+
+	if lk.Tail.Data != 10 {
 		t.Fail()
 	}
 }
