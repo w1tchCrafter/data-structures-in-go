@@ -14,6 +14,7 @@ func NewLinkedList[T any]() LinkedList[T] {
 	return LinkedList[T]{}
 }
 
+// append new data to the end of the linked list
 func (lk *LinkedList[T]) AppendToEnd(data T) {
 	NewNode := &Node[T]{Data: data}
 
@@ -26,14 +27,42 @@ func (lk *LinkedList[T]) AppendToEnd(data T) {
 	lk.Tail = NewNode
 }
 
+// append new data to the beggining of the linked list
 func (lk *LinkedList[T]) AppendToBeggining(data T) {
+	NewNode := &Node[T]{Data: data}
+	NewNode.Next = lk.Head
+	lk.Head = NewNode
+}
+
+/*
+insert data at a certain index starting at zero
+
+	if head is nil, appends data to head
+	if the linked list is not long enough, appends the data to the tail
+*/
+func (lk *LinkedList[T]) Insert(index uint, data T) {
 	NewNode := &Node[T]{Data: data}
 
 	if lk.Head == nil {
 		lk.Head = NewNode
-	} else {
-		NewNode.Next = lk.Head
+		lk.Tail = NewNode
+		return
 	}
 
-	lk.Head = NewNode
+	current := lk.Head
+	for i := 0; i <= int(index); i++ {
+		if current == nil {
+			current = NewNode
+			lk.Tail = NewNode
+			break
+		}
+
+		if i == int(index)-1 {
+			NewNode.Next = current.Next
+			current.Next = NewNode
+			break
+		}
+
+		current = current.Next
+	}
 }
