@@ -21,28 +21,28 @@ func TestPop(t *testing.T) {
 	s.Push(3)
 
 	// due to fifo principle the popped number must be 3
-	popped := s.Pop()
+	popped, err := s.Pop()
 
-	if popped != 3 && s.Top != 1 && s.Data[s.Top] != 2 {
+	if (popped != 3 && s.Top != 1 && s.Data[s.Top] != 2) || err != nil {
 		t.Fail()
 	}
 }
 
-func TestTopElement(t *testing.T) {
+func TestPeek(t *testing.T) {
 	s := NewStack[int]()
 	s.Push(23)
 	s.Push(47)
 
-	te := s.TopElement()
+	te, err := s.Peek()
 
-	if te != 47 {
+	if te != 47 || err != nil {
 		t.Fail()
 	}
 
 	s.Pop()
-	te = s.TopElement()
+	te, err = s.Peek()
 
-	if te != 23 {
+	if te != 23 || err != nil {
 		t.Fail()
 	}
 }

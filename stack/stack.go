@@ -1,5 +1,9 @@
 package stack
 
+import "errors"
+
+var EmptyStack error = errors.New("Stack is empty")
+
 type Stack[T any] struct {
 	Data []T
 	Top  int
@@ -19,16 +23,24 @@ func (s *Stack[T]) Push(data T) {
 }
 
 // remove element from the stack then return it
-func (s *Stack[T]) Pop() T {
-	e := s.Data[s.Top]
-	s.Data = s.Data[0:s.Top]
-	s.Top--
-	return e
+func (s *Stack[T]) Pop() (T, error) {
+	if !s.IsEmpty() {
+		e := s.Data[s.Top]
+		s.Data = s.Data[0:s.Top]
+		s.Top--
+		return e, nil
+	}
+
+	return *new(T), EmptyStack
 }
 
 // returns the top element of the stack
-func (s *Stack[T]) TopElement() T {
-	return s.Data[s.Top]
+func (s *Stack[T]) Peek() (T, error) {
+	if !s.IsEmpty() {
+		return s.Data[s.Top], nil
+	}
+
+	return *new(T), EmptyStack
 }
 
 // returns true if top element == -1 (initial value)
