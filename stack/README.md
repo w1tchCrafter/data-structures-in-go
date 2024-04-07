@@ -26,3 +26,5 @@ Helper operation to check if the collection is empty
 
 ### Size
 Helper operation, return the current number of elements on the stack
+
+![push](./images/push.jpg)
