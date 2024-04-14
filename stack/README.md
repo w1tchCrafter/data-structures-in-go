@@ -18,6 +18,11 @@ Pushing to the stack involves appending data to the collection used to implement
 ### Pop
 Remove the top elements of the stack, then decrement the *top* variable and returns the popped value. Stack must not be empty to run this operation.
 
+![push](./images/push.jpg)
+![pop](./images/pop.jpg)
+
+## Useful helpers
+
 ### Peek
 Helper operation, returns the data on the top of the stack without removing it.
 
@@ -27,4 +32,7 @@ Helper operation to check if the collection is empty
 ### Size
 Helper operation, return the current number of elements on the stack
 
-![push](./images/push.jpg)
+## Links
+
+- [Wikipedia](https://en.wikipedia.org/wiki/Stack_(abstract_data_type))
+- [geeks for geeks](https://www.geeksforgeeks.org/stack-data-structure/)
